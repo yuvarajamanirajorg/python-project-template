@@ -10,4 +10,4 @@ jobs:
   run-syntax-check-template:
     uses: yuvarajamanirajorg/ci-templates/.github/workflows/python-syntax.yml@main
     secrets:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
