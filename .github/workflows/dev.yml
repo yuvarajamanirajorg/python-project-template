@@ -1,0 +1,15 @@
+name: Python Syntax Check with Discord Notification
+
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  run-syntax-check-template:
+    uses: yuvarajamanirajorg/ci-templates/.github/workflows/python-code-quality.yml@main
+    secrets:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+
+  
