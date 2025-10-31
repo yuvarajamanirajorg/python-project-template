@@ -1,36 +1,13 @@
-name: Python CI Template
+name: Python Syntax Check with Discord Notification
 
 on:
-  workflow_call:
-    secrets:
-      DISCORD_WEBHOOK:
-        required: true
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  syntax-check:
-    runs-on: ubuntu-latest
-    outputs:
-      syntax_status: ${{ steps.syntax_check.outcome }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Validate Python syntax
-        id: syntax_check
-        run: python -m compileall -q .
-      
-      - name: Notify Discord Success
-        if: success()
-        uses: Ilshidur/action-discord@0.4.0
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        with:
-          args: '✅ Python syntax validation passed.'
-
-      - name: Notify Discord Failure
-        if: failure()
-        uses: Ilshidur/action-discord@0.4.0
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        with:
-          args: '❌ Python syntax check failed!'
+  run-syntax-check-template:
+    uses: yuvarajamanirajorg/ci-templates/.github/workflows/python-syntax.yml@main
+    secrets:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
